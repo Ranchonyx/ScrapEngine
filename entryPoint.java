@@ -1,6 +1,4 @@
-import java.lang.*;
-
-class entryPoint{
+class entryPoint {
     public static void main(String[] args) throws Exception{
             ScrapEngine engine = new ScrapEngine(500, 500, 6, "test", true);
             boolean err = false;

@@ -1,11 +1,10 @@
-import java.awt.*;
-import java.awt.event.*;
-import java.lang.annotation.Repeatable;
-import java.lang.reflect.Method;
+import java.awt.Color;
+import java.awt.Graphics;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
-public class ScrapEngine{
+public class ScrapEngine {
 
   public enum EngineStatus {
     RUNNING, STOPPED, STARTED, ERROR, ERRORFATAL, WARNING, DEBUG, RENDERING, DONE, CONSTRUCTING, YEET
@@ -14,7 +13,7 @@ public class ScrapEngine{
   private EngineStatus status;
   private static final int __MAX_BOUNDS_WIDTH__ = 1000;
   private static final int __MAX_BOUNDS_HEIGHT__ = 1000;
-  private int width;  
+  private int width;
   private int height;
   private int[][] grid;
   private JFrame frame;
@@ -24,24 +23,27 @@ public class ScrapEngine{
   
   public ScrapEngine(int width, int height, int startColor, String title, boolean titleUpdateableAtRuntime){
 
-    if(width > __MAX_BOUNDS_WIDTH__ || height > __MAX_BOUNDS_HEIGHT__) {
+    this.width = width;
+    this.height = height;
+
+    status = EngineStatus.CONSTRUCTING;
+    panel = new MyPanel(grid);
+    grid = new int[width/20][height/20];
+    frame = new JFrame();
+    canUpdateTitleAtRuntime = titleUpdateableAtRuntime;
+
+    if(this.width > __MAX_BOUNDS_WIDTH__ || this.height > __MAX_BOUNDS_HEIGHT__) {
       status = EngineStatus.ERRORFATAL;
     }
 
-    status = EngineStatus.CONSTRUCTING;
-    this.width = width;
-    this.height = height;
-    canUpdateTitleAtRuntime = titleUpdateableAtRuntime;
-    grid = new int[width/20][height/20];
     JFrame.setDefaultLookAndFeelDecorated(true);
-    frame = new JFrame();
     frame.setSize(width,height);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    panel = new MyPanel(grid);
     frame.add(panel); 
     frame.setVisible(true);
+    frame.setTitle(title);  
     setEverythingColored(startColor);
-    this.frame.setTitle(title);  
+
   }
   
   public void setFrameTitle(String titleName) {
@@ -58,7 +60,7 @@ public class ScrapEngine{
 
   public String getStatus(boolean verbose) {
 
-    String out = (String)""+status+"";
+  String out = (String)""+status+"";
     if(!verbose) {
       if(status == EngineStatus.CONSTRUCTING) {
         return "";
