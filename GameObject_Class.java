@@ -1,7 +1,6 @@
-import java.lang.reflect.Type;
 
 
-public class GameObject_Class implements GameObject_Interface {
+public class GameObject_Class  {
         private int x,y;
         private String name,tag;
         private int width,height;
@@ -40,8 +39,7 @@ public class GameObject_Class implements GameObject_Interface {
         this.height = size.y;
         this.color = _color;
     }
-
-
+    
 
     public int getX() {
         return this.x;

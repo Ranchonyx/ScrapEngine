@@ -1,6 +1,8 @@
 import java.awt.Color;
 import java.awt.Graphics;
-
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -15,7 +17,7 @@ public class ScrapEngine {
   private static final int __MAX_BOUNDS_HEIGHT__ = 1000;
   private int width;
   private int height;
-  private int[][] grid;
+  public  int[][] grid;
   private JFrame frame;
   private MyPanel panel;
   private boolean drawReady = true;
@@ -27,8 +29,8 @@ public class ScrapEngine {
     this.height = height;
 
     status = EngineStatus.CONSTRUCTING;
+    grid = new int[this.width/20][this.height/20];
     panel = new MyPanel(grid);
-    grid = new int[width/20][height/20];
     frame = new JFrame();
     canUpdateTitleAtRuntime = titleUpdateableAtRuntime;
 
@@ -37,15 +39,14 @@ public class ScrapEngine {
     }
 
     JFrame.setDefaultLookAndFeelDecorated(true);
-    frame.setSize(width,height);
+    frame.setSize(this.width,this.height);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.add(panel); 
     frame.setVisible(true);
     frame.setTitle(title);  
     setEverythingColored(startColor);
-
   }
-  
+
   public void setFrameTitle(String titleName) {
       if(this.canUpdateTitleAtRuntime == true) {
         this.frame.setTitle(titleName);  
@@ -88,6 +89,12 @@ public class ScrapEngine {
     return false;
   }
 
+  public GameObject_Class Instantiate(GameObject_Class gameobj) {
+    return (GameObject_Class)gameobj;
+  }
+
+  
+
   public int[][] getGrid(){
     return grid;
   }  
@@ -102,15 +109,16 @@ public class ScrapEngine {
   }
 
   public void setEverythingColored(int color){
-    status = EngineStatus.RENDERING;
+    status = EngineStatus.YEET;
     for (int i=0; i<grid[0].length; i++){
-        for (int j=0;j<grid.length ;j++ ) {
+        for (int j=0;j<grid.length; j++ ) {
             grid[i][j] = color;
         }
     }
   }
     
   public void renderGraphics(){
+    status = EngineStatus.YEET;
     if(drawReady != false){
       drawReady = false;
       frame.invalidate();
@@ -119,18 +127,20 @@ public class ScrapEngine {
       drawReady = true;
     }     
   }
+
   public JFrame getFrame(){
     return frame;
   }
+  
 }
 
 class MyPanel extends JPanel  {
 
   private static final long serialVersionUID = 1L;
   int[][] grid;
-  public MyPanel (int[][] _grid){
+  public MyPanel (int[][] grid){
     super();
-    this.grid = _grid;  
+    this.grid = grid;  
   }
   
   public void paint(Graphics g) {
@@ -155,7 +165,7 @@ class MyPanel extends JPanel  {
                      g.fillRect(i*20, j*20, 20, 20);      
                      break;
                      //..
-                     case 6:
+                     case 4:
                      g.setColor(Color.black);
                      g.fillRect(i*20, j*20, 20, 20);
                      break;                     

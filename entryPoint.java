@@ -1,6 +1,6 @@
 class entryPoint {
     public static void main(String[] args) throws Exception{
-            ScrapEngine engine = new ScrapEngine(500, 500, 6, "test", true);
+            ScrapEngine engine = new ScrapEngine(700, 700, 4, "test", true);
             boolean err = false;
             while(true) {
                 
@@ -8,8 +8,9 @@ class entryPoint {
 
                     //YOUR CODE HERE
 
-
-
+                    engine.setTileColor(10, 10, 3);
+                    engine.renderGraphics();
+                    
 
                 if(err == true) {
                     break;
@@ -20,9 +21,11 @@ class entryPoint {
                 System.out.println(engine.getStatus(
                  true   
                 ));
+
                 if(engine.chkErr() == true)
                     System.exit(0);
                 }
+                Thread.sleep(100);
                 ///END UPDATER FIELD
             }
     }
