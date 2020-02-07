@@ -1,43 +1,39 @@
 
 
-public class GameObject_Class  {
-        private int x,y;
+public class GameObject_Class implements GameObject_Interface {
+        private int x,y,xMax,yMax,color;
         private String name,tag;
-        private int width,height;
-        private int color;
 
     
-    public GameObject_Class(Types.Vector2<Integer> pos){
+    public GameObject_Class(Types.Vector2<Integer> pos, int xMax, int yMax){
         this.x = pos.x;
         this.y = pos.y;
+        this.xMax = xMax;
+        this.yMax = yMax;
     }
-    public GameObject_Class(Types.Vector2<Integer> pos,String name) {
+    public GameObject_Class(Types.Vector2<Integer> pos, int _color, int xMax, int yMax) {
         this.x = pos.x;
         this.y = pos.y;
-        this.name = name;
-    }
-    public GameObject_Class(Types.Vector2<Integer> pos,Types.Vector2<String> text) {
-        this.x = pos.x;
-        this.y = pos.y;
-        this.name = text.x;
-        this.tag = text.y;
-    }
-    public GameObject_Class(Types.Vector2<Integer> pos,Types.Vector2<String> text, Types.Vector2<Integer> size) {
-        this.x = pos.x;
-        this.y = pos.y;
-        this.name = text.x;
-        this.tag = text.y;
-        this.width = size.x;
-        this.height = size.y;
-    }
-    public GameObject_Class(Types.Vector2<Integer> pos,Types.Vector2<String> text, Types.Vector2<Integer> size, int _color) {
-        this.x = pos.x;
-        this.y = pos.y;
-        this.name = text.x;
-        this.tag = text.y;
-        this.width = size.x;
-        this.height = size.y;
         this.color = _color;
+        this.xMax = xMax;
+        this.yMax = yMax;
+    }
+    public GameObject_Class(Types.Vector2<Integer> pos, String name, int _color, int xMax, int yMax) {
+        this.x = pos.x;
+        this.y = pos.y;
+        this.color = _color;
+        this.name = name;
+        this.xMax = xMax;
+        this.yMax = yMax;
+    }
+    public GameObject_Class(Types.Vector2<Integer> pos,Types.Vector2<String> text, int _color, int xMax, int yMax) {
+        this.x = pos.x;
+        this.y = pos.y;
+        this.name = text.x;
+        this.tag = text.y;
+        this.color = _color;    
+        this.xMax = xMax;
+        this.yMax = yMax;                                                                                                                      
     }
     
 
@@ -54,6 +50,14 @@ public class GameObject_Class  {
         return this.color;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
+    public String getTag() {
+        return this.tag;
+    }
+
     public void setX(int _x) {
         this.x = _x;
     }
@@ -67,4 +71,41 @@ public class GameObject_Class  {
     public void setColor(int _color) {
         this.color = _color;
     }
+    
+    public void move(Types.KeyCode direction) throws Exception {
+
+        if(this.x < 1) {
+            direction = Types.KeyCode.DIRECTION_RIGHT;
+        } else if(this.x >= xMax-2) {
+            direction = Types.KeyCode.DIRECTION_LEFT;
+        }
+
+        if(this.y < 1) {
+            direction = Types.KeyCode.DIRECTION_DOWN;
+        } else if(this.y >= yMax-2) {
+            direction = Types.KeyCode.DIRECTION_UP;
+        }
+
+        switch (direction) {
+            case DIRECTION_UP:
+                this.y -=1;
+                break;
+            case DIRECTION_DOWN:
+                this.y +=1;
+                break;
+            case DIRECTION_LEFT:
+                this.x -=1;
+                break;
+            case DIRECTION_RIGHT:
+                this.x +=1;
+                break;
+            default:
+            return;
+        } try {
+        } catch(Exception e) {
+            throw e;
+        }
+        Thread.sleep(100);
+    }
+    
 }

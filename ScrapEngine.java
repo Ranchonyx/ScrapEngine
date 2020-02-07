@@ -1,8 +1,5 @@
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -47,6 +44,8 @@ public class ScrapEngine {
     setEverythingColored(startColor);
   }
 
+  public ScrapEngine() {}
+
   public void setFrameTitle(String titleName) {
       if(this.canUpdateTitleAtRuntime == true) {
         this.frame.setTitle(titleName);  
@@ -89,13 +88,21 @@ public class ScrapEngine {
     return false;
   }
 
-  public GameObject_Class Instantiate(GameObject_Class gameobj) {
-    return (GameObject_Class)gameobj;
-  }
 
   public GameObject_Class Load(GameObject_Class obj) {
     setTileColor(obj.getX(), obj.getY(), obj.getColor());
     Types.Vector2<Integer> location = obj.getLocation();
+    obj.setLocation(location);
+    return obj;
+  }
+
+  public GameObject_Class LastTickUpdate(GameObject_Class obj) {
+    setTileColor(obj.getX(), obj.getY(), 4);
+    return obj;
+  }
+
+  public GameObject_Class NextTickUpdate(GameObject_Class obj) {
+    setTileColor(obj.getX(), obj.getY(), obj.getColor());
     return obj;
   }
 

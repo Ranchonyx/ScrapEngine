@@ -9,6 +9,5 @@ public interface GameObject_Interface {
     public void setY(int _y);
     public void setLocation(Types.Vector2<Integer> pos);
     public void setColor(int _color);
-    
 
 }
