@@ -93,7 +93,11 @@ public class ScrapEngine {
     return (GameObject_Class)gameobj;
   }
 
-  
+  public GameObject_Class Load(GameObject_Class obj) {
+    setTileColor(obj.getX(), obj.getY(), obj.getColor());
+    Types.Vector2<Integer> location = obj.getLocation();
+    return obj;
+  }
 
   public int[][] getGrid(){
     return grid;
